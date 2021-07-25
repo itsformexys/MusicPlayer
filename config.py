@@ -30,7 +30,7 @@ ydl_opts = {
 ydl = YoutubeDL(ydl_opts)
 links=[]
 finalurl=""
-STREAM=os.environ.get("STREAM_URL", "https://node-16.zeno.fm/pdgarvnt6k8uv?rj-ttl=5&rj-tok=AAABeoPDJSYAk7LbTc-VOlSJaQ")
+STREAM=os.environ.get("STREAM_URL", "http://stream.zeno.fm/rcuskc7h208uv")
 regex = r"^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+"
 match = re.match(regex,STREAM)
 if match:
@@ -53,9 +53,9 @@ class Config:
     else:
         LOG_GROUP=None
     STREAM_URL=finalurl
-    ADMIN_ONLY=os.environ.get("ADMIN_ONLY", "N")
+    ADMIN_ONLY=os.environ.get("ADMIN_ONLY", "Y")
     ARQ_API=ARQ_API
-    REPLY_MESSAGE=os.environ.get("REPLY_MESSAGE", None)
+    REPLY_MESSAGE=os.environ.get("REPLY_MESSAGE", "Helo ser\n\nIam a Bot to play music, Not to chat with you!")
     if REPLY_MESSAGE:
         REPLY_MESSAGE=REPLY_MESSAGE
     else:
