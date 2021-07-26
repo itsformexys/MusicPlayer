@@ -183,18 +183,22 @@ class MusicPlayer(object):
         ).overwrite_output().run_async()
         FFMPEG_PROCESSES[CHAT] = process
         await sleep(7)
-        while True:
-            if os.path.isfile(group_call.input_filename):
-                await group_call.start(CHAT)
-                if group_call.is_connected:
-                    print("File Found and cpnnecte")
-                    break
+        await self.check_file(file=group_call.input_filename, call=group_call)
+        async def check_file(self, file, call):
+            while True:
+                group_call = call
+                group_call.input_filename=file
+                if os.path.isfile(group_call.input_filename):
+                    await group_call.start(CHAT)
+                    if group_call.is_connected:
+                        print("File Found and cpnnecte")
+                        return await self.check_file(file, call)
+                    else:
+                        print("Not found and return")
+                        return await self.check_file(file, call)
                 else:
-                    print("Not found and return")
+                    print("No file found ")
                     break await self.start_radio()
-            else:
-                print("No file found ")
-                break await self.start_radio()
 
     async def stop_radio(self):
         group_call = mp.group_call
