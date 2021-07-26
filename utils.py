@@ -189,23 +189,9 @@ class MusicPlayer(object):
                 if group_call.is_connected:
                     break
                 else:
-                    continue
+                    return await self.start_radio()
             else:
-                print("No File Found\nSleeping")
-                process = FFMPEG_PROCESSES.get(CHAT)
-                if process:
-                    process.send_signal(signal.SIGTERM)
-                await sleep(2)
-                process = ffmpeg.input(station_stream_url).output(
-                    group_call.input_filename,
-                    format='s16le',
-                    acodec='pcm_s16le',
-                    ac=2,
-                    ar='48k'
-                    ).overwrite_output().run_async()
-                FFMPEG_PROCESSES[CHAT] = process
-                await sleep(5)
-                continue
+                return await self.start_radio()
 
     async def stop_radio(self):
         group_call = mp.group_call
