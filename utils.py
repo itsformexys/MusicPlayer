@@ -191,10 +191,10 @@ class MusicPlayer(object):
                     break
                 else:
                     print("Not found and return")
-                    return await self.start_radio()
+                    break await self.start_radio()
             else:
                 print("No file found ")
-                return await self.start_radio()
+                break await self.start_radio()
 
     async def stop_radio(self):
         group_call = mp.group_call
