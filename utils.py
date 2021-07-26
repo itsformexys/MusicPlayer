@@ -170,8 +170,8 @@ class MusicPlayer(object):
             RADIO.add(1)
         except:
             pass
-        if os.path.exists(group_call.input_filename):
-            os.remove(group_call.input_filename)
+        #if os.path.exists(group_call.input_filename):
+            #os.remove(group_call.input_filename)
         # credits: https://t.me/c/1480232458/6825
         #os.mkfifo(group_call.input_filename)
         process = ffmpeg.input(station_stream_url).output(
@@ -182,15 +182,18 @@ class MusicPlayer(object):
             ar='48k'
         ).overwrite_output().run_async()
         FFMPEG_PROCESSES[CHAT] = process
+        await sleep(7)
         while True:
-            await sleep(5)
             if os.path.isfile(group_call.input_filename):
                 await group_call.start(CHAT)
                 if group_call.is_connected:
+                    print("File Found and cpnnecte")
                     break
                 else:
+                    print("Not found and return")
                     return await self.start_radio()
             else:
+                print("No file found ")
                 return await self.start_radio()
 
     async def stop_radio(self):
