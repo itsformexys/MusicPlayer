@@ -185,6 +185,7 @@ class MusicPlayer(object):
         await sleep(7)
         await self.check_file(file=group_call.input_filename, call=group_call)
     async def check_file(self, file, call):
+        await sleep(5)
         while True:
             group_call = call
             group_call.input_filename=file
