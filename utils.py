@@ -184,22 +184,22 @@ class MusicPlayer(object):
         FFMPEG_PROCESSES[CHAT] = process
         await sleep(7)
         await self.check_file(file=group_call.input_filename, call=group_call)
-        async def check_file(self, file, call):
-            while True:
-                group_call = call
-                group_call.input_filename=file
-                if os.path.isfile(group_call.input_filename):
-                    await group_call.start(CHAT)
-                    if group_call.is_connected:
-                        print("File Found and cpnnecte")
-                        break
-                        
-                    else:
-                        print("Not found and return")
-                        return await self.check_file(file, call)
+    async def check_file(self, file, call):
+        while True:
+            group_call = call
+            group_call.input_filename=file
+            if os.path.isfile(group_call.input_filename):
+                await group_call.start(CHAT)
+                if group_call.is_connected:
+                    print("File Found and cpnnecte")
+                    break
+
                 else:
-                    print("No file found ")
+                    print("Not found and return")
                     return await self.check_file(file, call)
+            else:
+                print("No file found ")
+                return await self.check_file(file, call)
 
     async def stop_radio(self):
         group_call = mp.group_call
