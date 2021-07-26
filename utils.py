@@ -192,13 +192,14 @@ class MusicPlayer(object):
                     await group_call.start(CHAT)
                     if group_call.is_connected:
                         print("File Found and cpnnecte")
-                        return await self.check_file(file, call)
+                        break
+                        
                     else:
                         print("Not found and return")
                         return await self.check_file(file, call)
                 else:
                     print("No file found ")
-                    break await self.start_radio()
+                    return await self.check_file(file, call)
 
     async def stop_radio(self):
         group_call = mp.group_call
