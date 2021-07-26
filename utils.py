@@ -186,7 +186,10 @@ class MusicPlayer(object):
             await sleep(5)
             if os.path.isfile(group_call.input_filename):
                 await group_call.start(CHAT)
-                break
+                if group_call.is_connected:
+                    break
+                else:
+                    continue
             else:
                 print("No File Found\nSleeping")
                 process = FFMPEG_PROCESSES.get(CHAT)
