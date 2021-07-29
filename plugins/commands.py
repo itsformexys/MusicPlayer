@@ -118,4 +118,7 @@ async def restart(client, message):
     if process:
         process.send_signal(signal.SIGTERM) 
     os.execl(sys.executable, sys.executable, *sys.argv)
+@Client.on_message(filters.command(["ffmpeg", f"ffmpeg@{U}"]) & filters.user(Config.ADMINS) & (filters.chat(CHAT) | filters.private))
+async def get_logt(client, message):
+    await message.reply_document("./ffmpeg.log")
     
