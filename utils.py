@@ -190,20 +190,12 @@ class MusicPlayer(object):
         ffmpeg_log = open("ffmpeg.log", "w+")
         command=["ffmpeg", "-y", "-i", station_stream_url, "-f", "s16le", "-ac", "2",
         "-ar", "48000", "-acodec", "pcm_s16le", group_call.input_filename]
-
-
+        
         process = await asyncio.create_subprocess_exec(
             *command,
             stdout=ffmpeg_log,
             stderr=asyncio.subprocess.STDOUT,
             )
-        """"
-        process = subprocess.Popen(
-            ["ffmpeg", "-y", "-i", station_stream_url, "-f", "s16le", "-ac", "2",
-            "-ar", "48000", "-acodec", "pcm_s16le", group_call.input_filename],
-            stderr=subprocess.STDOUT, stdout=ffmpeg_log,
-            )
-        """
         
         FFMPEG_PROCESSES[CHAT] = process
         if RADIO_TITLE:
