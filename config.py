@@ -1,4 +1,3 @@
-
 #MIT License
 
 #Copyright (c) 2021 SUBIN
@@ -30,7 +29,7 @@ ydl_opts = {
 ydl = YoutubeDL(ydl_opts)
 links=[]
 finalurl=""
-STREAM=os.environ.get("STREAM_URL", "http://stream.zeno.fm/rcuskc7h208uv")
+STREAM=os.environ.get("STREAM_URL", "https://eu10.fastcast4u.com/clubfmuae")
 regex = r"^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+"
 match = re.match(regex,STREAM)
 if match:
@@ -41,29 +40,33 @@ if match:
     finalurl=links[0]
 else:
     finalurl=STREAM
-from data import *
+
 class Config:
-    ADMIN = SUDO
+    ADMIN = os.environ.get("ADMINS", '')
     ADMINS = [int(admin) if re.search('^\d+$', admin) else admin for admin in (ADMIN).split()]
-    API_ID = API_ID
-    CHAT = CHAT
+    API_ID = int(os.environ.get("API_ID", ''))
+    CHAT = int(os.environ.get("CHAT", ""))
     LOG_GROUP=os.environ.get("LOG_GROUP", "")
     if LOG_GROUP:
         LOG_GROUP=int(LOG_GROUP)
     else:
         LOG_GROUP=None
     STREAM_URL=finalurl
-    ADMIN_ONLY=os.environ.get("ADMIN_ONLY", "Y")
-    ARQ_API=ARQ_API
-    REPLY_MESSAGE=os.environ.get("REPLY_MESSAGE", "Helo ser\n\nIam a Bot to play music, Not to chat with you!")
+    ADMIN_ONLY=os.environ.get("ADMIN_ONLY", "N")
+    ARQ_API=os.environ.get("ARQ_API", "")
+    REPLY_MESSAGE=os.environ.get("REPLY_MESSAGE", None)
     if REPLY_MESSAGE:
         REPLY_MESSAGE=REPLY_MESSAGE
     else:
         REPLY_MESSAGE=None
+    EDIT_TITLE = os.environ.get("EDIT_TITLE", True)
+    if EDIT_TITLE == "NO":
+        EDIT_TITLE=None
     DURATION_LIMIT=int(os.environ.get("MAXIMUM_DURATION", 15))
     DELAY = int(os.environ.get("DELAY", 10))
-    API_HASH = API_HASH
-    BOT_TOKEN = BOT_TOKEN
-    SESSION = SESSION
+    API_HASH = os.environ.get("API_HASH", "")
+    BOT_TOKEN = os.environ.get("BOT_TOKEN", "") 
+    SESSION = os.environ.get("SESSION_STRING", "")
     playlist=[]
     msg = {}
+
